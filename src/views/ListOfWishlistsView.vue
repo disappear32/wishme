@@ -1,52 +1,61 @@
-<template>
-    <ListContainer :list="listArray" />
-</template>
-
 <script lang="ts">
-import ListContainer from '../components/ListContainer.vue'
-import { useWebApp } from '../stores/webapp'
+import {defineComponent} from 'vue';
+import ListContainer from '../components/ListContainer.vue';
+import DefaultListItem from "../components/DefaultListItem.vue";
+import {useTgWebApp} from '../stores/tgWebApp';
+import {useUserStore} from '../stores/user';
+import {useRouter} from 'vue-router';
 
-export default {
-    data() {
-        return {
-            listArray: [
-                { name: '🎁 День Рождения', description: '6 подарков', date: this.createDateString() },
-                { name: '8 марта', description: '0 подарков', date: this.createDateString() },
-                { name: '23 февраля', description: '15 подарков', date: this.createDateString() },
-                { name: '23 февраля', description: '15 подарков', date: this.createDateString() },
-                { name: '23 февраля', description: '15 подарков', date: this.createDateString() },
-                { name: '23 февраля', description: '15 подарков', date: this.createDateString() },
-                { name: '23 февраля', description: '15 подарков', date: this.createDateString() },
-                { name: '14 февраля', description: '15 подарков', date: this.createDateString() },
-            ]
-        }
-    },
-    components: { ListContainer },
-    methods: {
-        createDateString() {
-            //console.log(ts)
+export default defineComponent ({
+  components: {DefaultListItem, ListContainer},
+  setup() {
+    const router = useRouter();
+    const user = useUserStore();
+    const tgWebApp = useTgWebApp();
+    const list = user.wishlists;
+    console.log(list)
 
-            return '20 ноября '
-        },
-        onMainButtonClick() {
-            this.$router.push({ name: 'add-wishlist' })
-            console.log('Добавить вишлист')
-        }
-    },
-    mounted() {
-        useWebApp().showBack()
-        useWebApp().showMainButton('Добавить вишлист', this.onMainButtonClick)
-    },
-    unmounted() {
-        useWebApp().offMainButtonEventListener(this.onMainButtonClick)
-        useWebApp().hideMainButton()
-    },
-    beforeRouteLeave(to, from) {
-        useWebApp().offMainButtonEventListener(this.onMainButtonClick)
+    return {
+      router,
+      tgWebApp,
+      list
+    };
+  },
+  mounted() {
+    this.tgWebApp.showBack();
+    this.tgWebApp.showMainButton('Добавить вишлист', this.onMainButtonClick);
+  },
+  unmounted() {
+    this.tgWebApp.offMainButtonEventListener(this.onMainButtonClick);
+    this.tgWebApp.hideMainButton();
+  },
+  beforeRouteLeave(to, from) {
+    this.tgWebApp.offMainButtonEventListener(this.onMainButtonClick);
 
-        if (to.path < from.path) useWebApp().hideMainButton()
-    },
-}
+    if (to.path < from.path) {
+      this.tgWebApp.hideMainButton();
+    }
+  },
+  methods: {
+    onMainButtonClick() {
+      this.router.push({ name: 'add-wishlist' });
+      console.log('Добавить вишлист');
+    }
+  },
+});
 </script>
 
-<style scoped></style>
+<template>
+  <ListContainer>
+    <DefaultListItem
+        v-for="(item, index) in list"
+        :key="`list_item_${index}`"
+        :name="item.name"
+        :date="item.date"
+        :hint="`${item.list.length} подарков`"
+        :redirectTo="'wishlist'"
+    />
+  </ListContainer>
+</template>
+
+<style></style>

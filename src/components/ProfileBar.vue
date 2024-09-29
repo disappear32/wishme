@@ -3,9 +3,9 @@
         <div class="header_container">
             <div class="header_container__photo"></div>
 
-            <div class="header_container__descrition">
-                <div class="header_container__descrition--name">{{ name }}</div>
-                <div class="header_container__descrition--link">{{ tgLink }}</div>
+            <div class="header_container__description">
+                <div class="header_container__description--name">{{ name }}</div>
+                <div class="header_container__description--link">{{ tgLink }}</div>
             </div>
         </div>
     </header>
@@ -28,7 +28,6 @@ export default {
 
 <style>
 .header {
-    position: relative;
     width: 100%;
 }
 
@@ -46,32 +45,30 @@ export default {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: gray;
     background-image: url('../assets/gift.jpg');
     background-position: center;
     background-size: cover;
 }
 
-.header_container__descrition {
+.header_container__description {
     margin-left: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.header_container__descrition--name {
-    color: #FFF;
+.header_container__description--name {
+    color: var(--theme-text-color);
     text-align: center;
-    font-family: Roboto;
+    font-family: Roboto, serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
 }
 
-.header_container__descrition--link {
-    color: #FFF;
-    text-align: center;
-    font-family: Roboto;
+.header_container__description--link {
+    color: var(--theme-text-color);
+    font-family: Roboto, serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;

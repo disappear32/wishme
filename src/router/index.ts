@@ -1,8 +1,8 @@
-import UserViewVue from '../views/UserView.vue'
-import ListOfWishlistsView from '../views/ListOfWishlistsView.vue'
-import WishlistViewVue from '../views/WishlistView.vue'
-import WishlistFormView from '../views/WishlistFormView.vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import UserView from '../views/UserView.vue';
+import ListOfWishlistsView from '../views/ListOfWishlistsView.vue';
+import WishlistView from '../views/WishlistView.vue';
+import WishlistFormView from '../views/WishlistFormView.vue';
+import {createRouter, createWebHistory} from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,33 +10,33 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      redirect: '/123',
+      redirect: '/:id',
     },
     {
-      path: '/123',
+      path: '/:id',
       name: 'user',
-      component: UserViewVue,
-      meta: { name: 'Списки', isShareAllowed: false }
+      component: UserView,
+      meta: { name: 'Списки', isShareAllowed: false },
     },
     {
-      path: '/123/wishlists',
+      path: '/:id/wishlists',
       name: 'wishlists',
       component: ListOfWishlistsView,
       meta: { name: 'Вишлисты', isShareAllowed: true },
     },
     {
-      path: '/123/wishlists/add-wishlist',
+      path: '/:id/wishlists/:wishlistName?',
+      name: 'wishlist',
+      component: WishlistView,
+      meta: { isShareAllowed: true },
+    },
+    {
+      path: '/:id/wishlists/add-wishlist',
       name: 'add-wishlist',
       component: WishlistFormView,
       meta: { name: 'Добавить вишлист', isShareAllowed: false },
     },
-    {
-      path: '/123/wishlists/den-rozdenia',
-      name: 'wishlist',
-      component: WishlistViewVue,
-      meta: { name: 'День Рождения', isShareAllowed: true }
-    },
-  ]
-})
+  ],
+});
 
-export default router
+export default router;

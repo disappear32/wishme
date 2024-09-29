@@ -66,7 +66,7 @@ export default {
 
 <style>
 .create_form {
-    background-color: var(--tg-theme-secondary-bg-color);
+    background-color: var(--theme-secondary-bg-color);
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -77,7 +77,7 @@ export default {
 }
 
 .create_form__header {
-    color: var(--tg-theme-text-color);
+    color: var(--theme-text-color);
     font-family: Roboto;
     font-size: 32px;
     font-style: normal;
@@ -100,8 +100,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid var(--tg-theme-button-color);
-    color: var(--tg-theme-text-color);
+    border: 1px solid var(--theme-button-color);
+    color: var(--theme-text-color);
     font-family: Roboto;
     font-size: 16px;
     font-style: normal;
@@ -121,7 +121,7 @@ export default {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    border: 1px solid var(--tg-theme-button-color);
+    border: 1px solid var(--theme-button-color);
     border-radius: 5px;
     height: 42px;
     display: flex;
@@ -131,7 +131,7 @@ export default {
 }
 
 .create_form__item--title {
-    color: var(--tg-theme-text-color);
+    color: var(--theme-text-color);
     opacity: 0.75;
     font-family: Roboto;
     font-size: 16px;
@@ -146,9 +146,9 @@ export default {
     height: 42px;
     padding-left: 10px;
     border-radius: 5px;
-    border: 1px solid var(--tg-theme-button-color);
-    background-color: var(--tg-theme-secondary-bg-color);
-    color: var(--tg-theme-text-color);
+    border: 1px solid var(--theme-button-color);
+    background-color: var(--theme-secondary-bg-color);
+    color: var(--theme-text-color);
     font-family: Roboto;
     font-size: 14px;
 }
@@ -158,16 +158,16 @@ export default {
     resize: none;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid var(--tg-theme-button-color);
-    background-color: var(--tg-theme-secondary-bg-color);
-    color: var(--tg-theme-text-color);
+    border: 1px solid var(--theme-button-color);
+    background-color: var(--theme-secondary-bg-color);
+    color: var(--theme-text-color);
     font-family: Roboto;
     font-size: 14px;
 }
 
 .create_form__item--name::placeholder,
 .create_form__item--comment::placeholder {
-    color: var(--tg-theme-hint-color);
+    color: var(--theme-hint-color);
     font-family: Roboto;
     font-size: 14px;
 }

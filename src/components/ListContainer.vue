@@ -1,22 +1,14 @@
-<template>
-    <ul class="list__items">
-        <DefaultListItem v-for="(item, index) in list" :listItemData="item" :key="index" />
-    </ul>
-</template>
-
 <script lang="ts">
-import DefaultListItem from './DefaultListItem.vue'
 
 export default {
-    data() {
-        return {}
-    },
-    components: { DefaultListItem },
-    props: {
-        list: { type: Array, required: true},
-    }
 }
 </script>
+
+<template>
+  <ul class="list__items">
+    <slot></slot>
+  </ul>
+</template>
 
 <style>
 .list__items {
@@ -25,7 +17,11 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
+    will-change: transform;
+    transform-style: preserve-3d;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
 }
 
 ul {

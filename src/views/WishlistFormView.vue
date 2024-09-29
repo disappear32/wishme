@@ -1,41 +1,49 @@
-<template>
-    <creare-form :emojis="emojis" @onInputClick="hideMainButton" @onOutsideInputClick="showMainButton"/>
-</template>
-
 <script lang="ts">
-import { useWebApp } from '../stores/webapp'
-import CreareForm from '../components/CreateForm.vue'
+import CreateForm from '../components/CreateForm.vue';
+import {useTgWebApp} from '../stores/tgWebApp';
 
 export default {
-    data() {
-        return {
-            emojis: ['📜', '📦', '🎉', '🗿', '✨']
-        }
+  components: {CreateForm},
+  setup() {
+    const tgWebApp = useTgWebApp();
+    const emojis =  ['📜', '📦', '🎉', '🗿', '✨'];
+
+    return {
+      tgWebApp,
+      emojis,
+    }
+  },
+  methods: {
+    onMainButtonClick() {
+      this.$router.push({ name: 'add-wishlist' })
+      console.log('Сохранить')
     },
-    components: { CreareForm },
-    methods: {
-        onMainButtonClick() {
-            this.$router.push({ name: 'add-wishlist' })
-            console.log('Сохранить')
-        },
-        hideMainButton() {
-            useWebApp().hideMainButton()
-        },
-        showMainButton() {
-            useWebApp().showMainButton('Сохранить', this.onMainButtonClick)
-        }
+    hideMainButton() {
+      this.tgWebApp.hideMainButton()
     },
-    mounted() {
-        useWebApp().showBack()
-        useWebApp().showMainButton('Сохранить', this.onMainButtonClick)
-    },
-    unmounted() {
-        useWebApp().offMainButtonEventListener(this.onMainButtonClick)
-    },
-    beforeRouteLeave() {
-        useWebApp().offMainButtonEventListener(this.onMainButtonClick)
-    },
+    showMainButton() {
+      this.tgWebApp.showMainButton('Сохранить', this.onMainButtonClick)
+    }
+  },
+  mounted() {
+    this.tgWebApp.showBack()
+    this.tgWebApp.showMainButton('Сохранить', this.onMainButtonClick)
+  },
+  unmounted() {
+    this.tgWebApp.offMainButtonEventListener(this.onMainButtonClick)
+  },
+  beforeRouteLeave() {
+    this.tgWebApp.offMainButtonEventListener(this.onMainButtonClick)
+  },
 }
 </script>
+
+<template>
+  <CreateForm
+      @onInputClick="hideMainButton"
+      @onOutsideInputClick="showMainButton"
+      :emojis="emojis"
+  />
+</template>
 
 <style></style>

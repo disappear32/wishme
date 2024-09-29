@@ -1,40 +1,37 @@
-<template>
-    <ListContainer :list="listArray" />
-</template>
-
 <script lang="ts">
-import ListContainer from '../components/ListContainer.vue'
-import { useWebApp } from '../stores/webapp'
+import {defineComponent} from 'vue';
+import ListContainer from '../components/ListContainer.vue';
+import {useRouter} from 'vue-router';
+import {useTgWebApp} from '../stores/tgWebApp';
+import {useUserStore} from "../stores/user.ts";
 
-export default {
-    data() {
-        return {
-            listArray: [
-                { name: 'iPhone 13 Pro', price: '130 000 р', status: 'active', isPinned: true, url: 'https://www.ozon.ru/product/kedy-reebok-court-advance-870121571/?avtc=1&avte=2&avts=1707472059', decription: 'Тут небольшое описание на 400 символов, ну может и не на 400, но текста достаточно' },
-                { name: 'iPhone 13 Pro', price: '130 000 р', status: 'active', isPinned: true, url: 'https://www.ozon.ru/product/kedy-reebok-court-advance-870121571/?avtc=1&avte=2&avts=1707472059', decription: 'Тут небольшое описание на 400 символов, ну может и не на 400, но текста достаточно' },
-                { name: 'iPhone 13 Pro', price: '130 000 р', status: 'active', isPinned: true, url: 'https://www.ozon.ru/product/kedy-reebok-court-advance-870121571/?avtc=1&avte=2&avts=1707472059', decription: 'Тут небольшое описание на 400 символов, ну может и не на 400, но текста достаточно' },
-                { name: 'iPhone 13 Pro', price: '130 000 р', status: 'active', isPinned: true, url: 'https://www.ozon.ru/product/kedy-reebok-court-advance-870121571/?avtc=1&avte=2&avts=1707472059', decription: 'Тут небольшое описание на 400 символов, ну может и не на 400, но текста достаточно' },
-            ]
-        }
-    },
-    components: { ListContainer },
-    methods: {
-        createDateString() {
-            //console.log(ts)
+export default defineComponent({
+  components: {ListContainer},
+  setup() {
+    const router = useRouter();
+    const user = useUserStore();
+    const tgWebApp = useTgWebApp();
+    const wishlistId = router.currentRoute.value.meta.id as number;
+    const list = user.wishlists[wishlistId];
 
-            return '20 ноября '
-        }
-    },
-    mounted() {
-        useWebApp().showBack()
-
-        useWebApp().MainButton.show()
-        useWebApp().MainButton.setText('Добавить вишлист')
-    },
-    unmounted() {
-        useWebApp().MainButton.hide()
+    return {
+      list,
+      tgWebApp,
     }
-}
+  },
+  mounted() {
+    this.tgWebApp.showBack();
+    this.tgWebApp.showMainButton('Добавить вишлист', () => {});
+  },
+  unmounted() {
+    this.tgWebApp.hideMainButton();
+  },
+});
 </script>
 
-<style scoped></style>
+<template>
+  <ListContainer>
+  </ListContainer>
+</template>
+
+<style></style>
